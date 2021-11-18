@@ -6,9 +6,14 @@ source $base_dir/lib/prelude_apply.bash
 source $base_dir/lib/prelude_bosh.bash
 
 mkdir -p $chroot/etc/sv
+mkdir -p $chroot/var/vcap/monit/svlog
+
+cp -a $assets_dir/nats-access-helper.sh $chroot/$bosh_dir/etc/nats-access-helper.sh
+cp -a $assets_dir/02-restrict-nats-api-access-allow-monit-api $chroot/etc/network/if-up.d/02-restrict-nats-api-access-allow-monit-api
 cp -a $assets_dir/runit/agent $chroot/etc/sv/agent
 cp -a $assets_dir/runit/monit $chroot/etc/sv/monit
-mkdir -p $chroot/var/vcap/monit/svlog
+
+chmod +x $chroot/$bosh_dir/etc/nats-access-helper.sh $chroot/etc/network/if-up.d/02-restrict-nats-api-access-allow-monit-api
 
 # Set up agent and monit with runit
 run_in_bosh_chroot $chroot "
@@ -27,16 +32,16 @@ ln -s /etc/sv/monit /etc/service/monit
 cp -a $assets_dir/alerts.monitrc $chroot/var/vcap/monit/alerts.monitrc
 cd $assets_dir
 
-# wget -O /usr/bin/meta4 https://github.com/dpb587/metalink/releases/download/v0.2.0/meta4-0.2.0-linux-amd64 \
-#   && echo "81a592eaf647358563f296aced845ac60d9061a45b30b852d1c3f3674720fe19  /usr/bin/meta4" | shasum -a 256 -c \
-#   && chmod +x /usr/bin/meta4
+wget -O /usr/bin/meta4 https://github.com/dpb587/metalink/releases/download/v0.2.0/meta4-0.2.0-linux-amd64 \
+  && echo "81a592eaf647358563f296aced845ac60d9061a45b30b852d1c3f3674720fe19  /usr/bin/meta4" | shasum -a 256 -c \
+  && chmod +x /usr/bin/meta4
 
-# bosh_agent_version=$(cat ${assets_dir}/bosh-agent-version)
-# /usr/bin/meta4 file-download --metalink=${assets_dir}/metalink.meta4 --file=bosh-agent-${bosh_agent_version}-linux-amd64 bosh-agent
+bosh_agent_version=$(cat ${assets_dir}/bosh-agent-version)
+/usr/bin/meta4 file-download --metalink=${assets_dir}/metalink.meta4 --file=bosh-agent-${bosh_agent_version}-linux-amd64 bosh-agent
 
-# mv bosh-agent $chroot/var/vcap/bosh/bin/
-## TODO: temporarily add self compiled agent until https://github.com/cloudfoundry/bosh-agent/pull/251 is merged
-cp $assets_dir/bosh-agent $chroot/var/vcap/bosh/bin/
+mv bosh-agent $chroot/var/vcap/bosh/bin/bosh-agent
+chmod +x $chroot/var/vcap/bosh/bin/bosh-agent
+>>>>>>> 0cef5fbabc92af0854931d858eccb0a36ecb35dc
 
 cp $assets_dir/bosh-agent-rc $chroot/var/vcap/bosh/bin/bosh-agent-rc
 
@@ -56,7 +61,7 @@ systemctl restart systemd-networkd
 EOF
 chmod +x $chroot/var/vcap/bosh/bin/restart_networking
 
-chmod +x $chroot/var/vcap/bosh/bin/bosh-agent
+
 chmod +x $chroot/var/vcap/bosh/bin/bosh-agent-rc
 chmod +x $chroot/var/vcap/bosh/bin/bosh-blobstore-dav
 
