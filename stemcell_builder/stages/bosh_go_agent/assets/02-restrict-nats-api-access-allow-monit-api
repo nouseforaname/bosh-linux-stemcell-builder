@@ -30,9 +30,10 @@ if [[ "$IFACE" == "lo" ]]; then
 fi
 
 
-# The rest of the script should only be executed if the interface is eth0
-if [[ "$IFACE" != "eth0" ]]; then
-  echo "$(date) skipping waiting for /var/vcap/bosh/settings.json. Current iface is $IFACE not eth0"
+# The rest of the script should only be executed if the interface is --all.
+# current tests confirmed the name on gcp and vshpere
+if [[ "$IFACE" != "--all" ]]; then
+  echo "$(date) skipping waiting for /var/vcap/bosh/settings.json. Current iface is $IFACE not --all"
 else
   echo "$(date) detected is $IFACE, starting to wait for /var/vcap/bosh/settings.json"
   NEXT_WAIT_TIME=0
