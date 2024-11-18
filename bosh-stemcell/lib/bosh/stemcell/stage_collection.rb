@@ -105,7 +105,7 @@ module Bosh::Stemcell
         bosh_harden
         bosh_openstack_agent_settings
         bosh_clean_ssh
-        image_create
+        image_create_efi
         image_install_grub
         sbom_create
       ]
@@ -123,7 +123,7 @@ module Bosh::Stemcell
         bosh_harden
         bosh_cloudstack_agent_settings
         bosh_clean_ssh
-        image_create
+        image_create_efi
         image_install_grub
         sbom_create
       ]
@@ -177,7 +177,7 @@ module Bosh::Stemcell
         bosh_harden
         bosh_alicloud_agent_settings
         bosh_clean_ssh
-        image_create
+        image_create_efi
         image_install_grub
         sbom_create
       ]
@@ -212,7 +212,7 @@ module Bosh::Stemcell
         # when adding a stage that changes files in the image, do so before
         # this line.  Image create will make the image so any changes to the
         # filesystem after it won't apply.
-        :image_create,
+        :image_create_efi,
         :image_install_grub,
         :sbom_create,
       ]
@@ -232,7 +232,7 @@ module Bosh::Stemcell
         # when adding a stage that changes files in the image, do so before
         # this line.  Image create will make the image so any changes to the
         # filesystem after it won't apply.
-        :image_create,
+        :image_create_efi,
         :image_install_grub,
         :sbom_create,
       ]
