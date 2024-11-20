@@ -1,22 +1,22 @@
 <metalink xmlns="urn:ietf:params:xml:ns:metalink">
   <file name="ubuntu-noble.tgz">
-    <hash type="sha-512">35827853f64dc8011fdfb1132e94f1d1010b4594cda34c8131dc7644c280db51116c855917ab229eddd6249091c730ea25a508faac8612d62cede1fdbca03439</hash>
-    <hash type="sha-256">1bff03b7f14b4310670620d46cb5e90118141db49a665ee4abe319ddbf16dda5</hash>
-    <hash type="sha-1">1de37f9663294668d9a997f64fb5ce38ec6578ad</hash>
-    <hash type="md5">febd99f6b03f9b44f61b683895394426</hash>
-    <size>448827651</size>
+    <hash type="sha-512">3d681897d33f2c3d12054c9ffb7141e1fdb06eb3ac5ab9ce7a29af896b61e3707ffdff1fd611ae310cb23f51e847a0a27ef6488cc5c91ff9f79d3fee71066eba</hash>
+    <hash type="sha-256">80644b4f3c76f56c7e94e9af407ce2dd3257848e8dfa4567ea45429894a710b4</hash>
+    <hash type="sha-1">e39afc950d003c63c5f71f7cca9500150c672719</hash>
+    <hash type="md5">95d3fe7a9e6671a4c96ea513e6e3fd86</hash>
+    <size>448844990</size>
     <url>https://storage.googleapis.com/bosh-os-images/ubuntu-noble/ubuntu-noble.tgz</url>
-    <version>18.0.0</version>
+    <version>19.0.0</version>
   </file>
   <file name="usn-log.json">
-    <hash type="sha-512">9417bd0f9c7c68f1b896fd208d24b28a53df8be9323d537c8bc04f64baa8dc59f8b93010e2c3482764104dccdef3cbefc4534eff41ba2a42f026169d05b653aa</hash>
-    <hash type="sha-256">e01c9f35362a9c9ec00cee6a6ad615240fd09be8276e8d3aec0d56421984e129</hash>
-    <hash type="sha-1">599afc6e5ad54d9e4df43d9ffde97339605d3958</hash>
-    <hash type="md5">2e0944ac85ff2ffe4f6fd630eb590ae2</hash>
-    <size>1889</size>
+    <hash type="sha-512">8d001dfcffb4c4960859539365187a1ce589f9671334aba3d1aa14cf04f87a7b19ffd5d526ea80f89ffa1e01755166e13dba077941a86f00b17e4fd59acd10d4</hash>
+    <hash type="sha-256">a36f3b8289d050aedc32d2d71ca81216730aee11b685f5689ae24d135c34ec47</hash>
+    <hash type="sha-1">e955ff097eaba8141a861d5a6be65450dee29279</hash>
+    <hash type="md5">26b7af514ea632b67318acc7aafaa8e9</hash>
+    <size>17167</size>
     <url>https://storage.googleapis.com/bosh-os-images/ubuntu-noble/usn-log.json</url>
-    <version>18.0.0</version>
+    <version>19.0.0</version>
   </file>
   <generator>metalink-repository-resource/0.0.0</generator>
-  <published>2024-11-19T19:58:51.021198536Z</published>
+  <published>2024-11-20T03:04:19.26681838Z</published>
 </metalink>
