@@ -261,34 +261,6 @@ module Bosh::Stemcell
         end
       end
 
-      context 'when using vCloud' do
-        let(:infrastructure) { Infrastructure.for('vcloud') }
-
-        context 'when operating system is Ubuntu' do
-          let(:operating_system) { OperatingSystem.for('ubuntu') }
-
-          it 'has the correct stages' do
-            expect(stage_collection.build_stemcell_image_stages).to eq(
-              [
-                :system_network,
-                :system_open_vm_tools,
-                :system_vsphere_cdrom,
-                :system_parameters,
-                :bosh_clean,
-                :bosh_harden,
-                :bosh_vsphere_agent_settings,
-                :bosh_clean_ssh,
-                :image_create_efi,
-                :image_install_grub,
-                :sbom_create,
-                :bosh_package_list,
-            ]
-            )
-            expect(stage_collection.package_stemcell_stages('ovf')).to eq(vmware_package_stemcell_steps)
-          end
-        end
-      end
-
       context 'when using Azure' do
         let(:infrastructure) { Infrastructure.for('azure') }
 
