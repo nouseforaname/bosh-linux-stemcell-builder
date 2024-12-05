@@ -14,8 +14,6 @@ module Bosh::Stemcell
           Vsphere.new
         when 'warden'
           Warden.new
-        when 'vcloud'
-          Vcloud.new
         when 'azure'
           Azure.new
         when 'softlayer'
@@ -106,22 +104,6 @@ module Bosh::Stemcell
           default_disk_size: 5120,
           disk_formats: ['ovf'],
           stemcell_formats: ['vsphere-ova', 'vsphere-ovf']
-        )
-      end
-
-      def additional_cloud_properties
-        {'root_device_name' => '/dev/sda1'}
-      end
-    end
-
-    class Vcloud < Base
-      def initialize
-        super(
-          name: 'vcloud',
-          hypervisor: 'esxi',
-          default_disk_size: 5120,
-          disk_formats: ['ovf'],
-          stemcell_formats: ['vcloud-ova', 'vcloud-ovf']
         )
       end
 

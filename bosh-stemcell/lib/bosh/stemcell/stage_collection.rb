@@ -58,9 +58,7 @@ module Bosh::Stemcell
                when Infrastructure::OpenStack then
                  openstack_stages
                when Infrastructure::Vsphere then
-                 vsphere_vcloud_stages
-               when Infrastructure::Vcloud then
-                 vsphere_vcloud_stages
+                 vsphere_stages
                when Infrastructure::Warden then
                  warden_stages
                when Infrastructure::Azure then
@@ -130,7 +128,7 @@ module Bosh::Stemcell
     end
 
 
-    def vsphere_vcloud_stages
+    def vsphere_stages
       [
         :system_network,
         :system_open_vm_tools,
