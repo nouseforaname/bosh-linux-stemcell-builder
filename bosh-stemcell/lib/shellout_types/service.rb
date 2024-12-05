@@ -27,7 +27,7 @@ module ShelloutTypes
       stdout, stderr, status = @chroot.run('cat', '/etc/*release')
       raise RuntimeError, stderr if status != 0
 
-      raise "Cannot determine Linux distribution: #{stdout}" unless stdout.match(/Ubuntu|CentOS|openSUSE/)
+      raise "Cannot determine Linux distribution: #{stdout}" unless stdout.match(/Ubuntu/)
 
       check_is_enabled_systemctl
     end
