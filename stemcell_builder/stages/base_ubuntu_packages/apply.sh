@@ -16,7 +16,7 @@ cmake uuid-dev libgcrypt-dev ca-certificates \
 scsitools mg htop module-assistant debhelper runit parted \
 cloud-guest-utils anacron software-properties-common \
 xfsprogs gdisk chrony dbus nvme-cli rng-tools fdisk \
-ethtool libpam-modules libpam-pwquality gpg-agent libcurl4 libcurl4-openssl-dev resolvconf net-tools ifupdown"
+ethtool libpam-pwquality gpg-agent libcurl4 libcurl4-openssl-dev resolvconf net-tools ifupdown"
 
 pkg_mgr purge netplan.io
 run_in_chroot $chroot "
@@ -31,6 +31,9 @@ run_in_chroot "${chroot}" "systemctl enable systemd-networkd-resolvconf-update.s
 
 pkg_mgr install $debs
 
+# NOBLE_TODO: adiscon repo does not have noble packages yet
+# run_in_chroot $chroot "add-apt-repository ppa:adiscon/v8-stable"
+# pkg_mgr install "rsyslog rsyslog-gnutls rsyslog-openssl rsyslog-mmjsonparse rsyslog-mmnormalize rsyslog-relp"
 pkg_mgr install "rsyslog rsyslog-gnutls rsyslog-openssl rsyslog-relp"
 
 run_in_chroot "${chroot}" "systemctl enable systemd-logind"
