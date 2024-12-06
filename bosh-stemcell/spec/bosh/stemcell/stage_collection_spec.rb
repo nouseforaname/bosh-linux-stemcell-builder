@@ -295,35 +295,6 @@ module Bosh::Stemcell
         end
       end
 
-      context 'when using softlayer' do
-        let(:infrastructure) { Infrastructure.for('softlayer') }
-
-        context 'when the operating system is Ubuntu' do
-          let(:operating_system) { OperatingSystem.for('ubuntu') }
-
-          it 'has the correct stages' do
-            expect(stage_collection.build_stemcell_image_stages).to eq(
-              [
-                :system_network,
-                :system_softlayer_open_iscsi,
-                :system_softlayer_multipath_tools,
-                :system_softlayer_netplan,
-                :system_parameters,
-                :bosh_clean,
-                :bosh_harden,
-                :bosh_softlayer_agent_settings,
-                :bosh_config_root_ssh_login,
-                :bosh_clean_ssh,
-                :image_create_softlayer_two_partitions,
-                :image_install_grub_softlayer_two_partitions,
-                :bosh_package_list
-              ]
-            )
-            expect(stage_collection.package_stemcell_stages('ovf')).to eq(vmware_package_stemcell_steps)
-          end
-        end
-      end
-
       context 'when using Warden' do
         let(:infrastructure) { Infrastructure.for('warden') }
         let(:build_stemcell_image_stages) {

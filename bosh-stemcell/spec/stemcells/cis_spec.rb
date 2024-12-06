@@ -61,7 +61,6 @@ describe 'CIS test case verification', {stemcell_image: true, security_spec: tru
     exclude_on_warden: true,
     exclude_on_openstack: true,
     exclude_on_cloudstack: true,
-    exclude_on_softlayer: true,
   } do
     it 'confirms that all CIS test cases ran' do
       expect($cis_test_cases.to_a).to match_array(base_cis_test_cases)

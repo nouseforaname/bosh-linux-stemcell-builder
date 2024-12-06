@@ -9,7 +9,6 @@ describe 'Ubuntu 24.04 stemcell image', stemcell_image: true do
   linux_version_regex = 's/linux-(.+)-([0-9]+).([0-9]+).([0-9]+)-([0-9]+)/linux-\1-\2.\3/'
 
   context 'installed by image_install_grub', {
-    exclude_on_softlayer: true,
     exclude_on_vsphere: true,
     exclude_on_google: true,
     exclude_on_aws: true,
@@ -58,9 +57,7 @@ describe 'Ubuntu 24.04 stemcell image', stemcell_image: true do
     end
   end
 
-  context 'installed by image_install_grub', {
-    exclude_on_softlayer: true,
-  } do
+  context 'installed by image_install_grub' do
     describe file('/boot/efi/EFI/grub/grub.cfg') do
       it { should be_file }
       its(:content) { should match 'set default="0"' }
@@ -82,40 +79,6 @@ describe 'Ubuntu 24.04 stemcell image', stemcell_image: true do
         its(:content) { should match %r{linux\t/boot/vmlinuz-\S+-generic root=UUID=\S* ro } }
         its(:content) { should match %r{initrd\t/boot/initrd.img-\S+-generic} }
       end
-    end
-
-    describe file('/boot/grub/menu.lst') do
-      before { skip 'until alicloud/aws/openstack stop clobbering the symlink with "update-grub"' }
-      it { should be_linked_to('./grub.cfg') }
-    end
-  end
-
-  context 'installed by image_install_grub_softlayer_two_partitions', {
-      exclude_on_alicloud: true,
-      exclude_on_aws: true,
-      exclude_on_cloudstack: true,
-      exclude_on_google: true,
-      exclude_on_vsphere: true,
-      exclude_on_warden: true,
-      exclude_on_openstack: true,
-      exclude_on_azure: true,
-  } do
-    describe file(grub_cfg_path) do
-      it { should be_file }
-      its(:content) { should match 'set default="0"' }
-      its(:content) { should match(/^set root=\(hd0,2\)$/) }
-      its(:content) { should match %r{linux\t/vmlinuz-\S+-generic root=UUID=\S* ro } }
-      its(:content) { should match ' selinux=0' }
-      its(:content) { should match ' cgroup_enable=memory swapaccount=1' }
-      its(:content) { should match ' console=ttyS0,115200n8' }
-      its(:content) { should match ' earlyprintk=ttyS0 rootdelay=300' }
-      its(:content) { should match %r{initrd\t/initrd.img-\S+-generic} }
-
-      it('should set the grub menu password (stig: V-38585)') { expect(subject.content).to match /password_pbkdf2 vcap/ }
-      it('should be of mode 600 (stig: V-38583)') { expect(subject).to be_mode(0600) }
-      it('should be owned by root (stig: V-38579)') { expect(subject).to be_owned_by('root') }
-      it('should be grouped into root (stig: V-38581)') { expect(subject.group).to eq('root') }
-      it('audits processes that start prior to auditd (CIS-8.1.3)') { expect(subject.content).to match ' audit=1' }
     end
 
     describe file('/boot/grub/menu.lst') do
@@ -174,7 +137,6 @@ describe 'Ubuntu 24.04 stemcell image', stemcell_image: true do
     exclude_on_vsphere: true,
     exclude_on_warden: true,
     exclude_on_azure: true,
-    exclude_on_softlayer: true,
   } do
     describe file('/etc/network/interfaces') do
       it { should be_file }
@@ -191,7 +153,6 @@ describe 'Ubuntu 24.04 stemcell image', stemcell_image: true do
     exclude_on_vsphere: true,
     exclude_on_warden: true,
     exclude_on_openstack: true,
-    exclude_on_softlayer: true,
   } do
     describe file('/etc/network/interfaces') do
       it { should be_file }
@@ -208,7 +169,6 @@ describe 'Ubuntu 24.04 stemcell image', stemcell_image: true do
     exclude_on_warden: true,
     exclude_on_openstack: true,
     exclude_on_azure: true,
-    exclude_on_softlayer: true,
   } do
     describe package('open-vm-tools') do
       it { should be_installed }
@@ -220,51 +180,6 @@ describe 'Ubuntu 24.04 stemcell image', stemcell_image: true do
     end
   end
 
-  context 'installed by system_softlayer_open_iscsi', {
-      exclude_on_alicloud: true,
-      exclude_on_aws: true,
-      exclude_on_cloudstack: true,
-      exclude_on_google: true,
-      exclude_on_vsphere: true,
-      exclude_on_warden: true,
-      exclude_on_openstack: true,
-      exclude_on_azure: true,
-  } do
-    describe package('open-iscsi') do
-      it { should be_installed }
-    end
-  end
-
-  context 'installed by system_softlayer_multipath_tools', {
-      exclude_on_alicloud: true,
-      exclude_on_aws: true,
-      exclude_on_cloudstack: true,
-      exclude_on_google: true,
-      exclude_on_vsphere: true,
-      exclude_on_warden: true,
-      exclude_on_openstack: true,
-      exclude_on_azure: true,
-  } do
-    describe package('multipath-tools') do
-      it { should be_installed }
-    end
-  end
-
-  context 'installed by system_softlayer_netplan', {
-      exclude_on_alicloud: true,
-      exclude_on_aws: true,
-      exclude_on_cloudstack: true,
-      exclude_on_google: true,
-      exclude_on_vsphere: true,
-      exclude_on_warden: true,
-      exclude_on_openstack: true,
-      exclude_on_azure: true,
-  } do
-    describe package('netplan.io') do
-      it { should be_installed }
-    end
-  end
-
   context 'installed by image_vsphere_cdrom stage', {
     exclude_on_alicloud: true,
     exclude_on_aws: true,
@@ -273,7 +188,6 @@ describe 'Ubuntu 24.04 stemcell image', stemcell_image: true do
     exclude_on_warden: true,
     exclude_on_openstack: true,
     exclude_on_azure: true,
-    exclude_on_softlayer: true,
   } do
     describe file('/etc/udev/rules.d/60-cdrom_id.rules') do
       it { should be_file }
@@ -322,7 +236,6 @@ HERE
     exclude_on_vsphere: true,
     exclude_on_warden: true,
     exclude_on_azure: true,
-    exclude_on_softlayer: true,
   } do
     describe file('/var/vcap/bosh/agent.json') do
       it { should be_valid_json_file }
@@ -338,7 +251,6 @@ HERE
     exclude_on_vsphere: true,
     exclude_on_warden: true,
     exclude_on_azure: true,
-    exclude_on_softlayer: true,
   } do
     describe file('/var/vcap/bosh/agent.json') do
       it { should be_valid_json_file }
@@ -354,7 +266,6 @@ HERE
     exclude_on_vsphere: true,
     exclude_on_warden: true,
     exclude_on_azure: true,
-    exclude_on_softlayer: true,
   } do
     describe file('/var/vcap/bosh/agent.json') do
       it { should be_valid_json_file }
@@ -370,7 +281,6 @@ HERE
     exclude_on_vsphere: true,
     exclude_on_warden: true,
     exclude_on_azure: true,
-    exclude_on_softlayer: true,
   } do
     describe file('/var/vcap/bosh/agent.json') do
       it { should be_valid_json_file }
@@ -388,29 +298,10 @@ HERE
     exclude_on_openstack: true,
     exclude_on_warden: true,
     exclude_on_azure: true,
-    exclude_on_softlayer: true,
   } do
     describe file('/var/vcap/bosh/agent.json') do
       it { should be_valid_json_file }
       its(:content) { should match('"Type": "CDROM"') }
-    end
-  end
-
-  context 'installed by bosh_softlayer_agent_settings', {
-      exclude_on_alicloud: true,
-      exclude_on_aws: true,
-      exclude_on_cloudstack: true,
-      exclude_on_google: true,
-      exclude_on_vsphere: true,
-      exclude_on_warden: true,
-      exclude_on_azure: true,
-      exclude_on_openstack: true,
-  } do
-    describe file('/var/vcap/bosh/agent.json') do
-      it { should be_valid_json_file }
-      its(:content) { should match('"Type": "HTTP"') }
-      its(:content) { should match('"UserDataPath": "/rest/v3.1/SoftLayer_Resource_Metadata/getUserMetadata.json"') }
-      its(:content) { should match('"UseRegistry": true') }
     end
   end
 
@@ -421,7 +312,6 @@ HERE
       exclude_on_azure: true,
       exclude_on_openstack: true,
       exclude_on_google: true,
-      exclude_on_softlayer: true,
   } do
     describe file('/var/vcap/bosh/agent.json') do
       it { should be_valid_json_file }
@@ -461,7 +351,6 @@ HERE
     let(:dpkg_list_vsphere_ubuntu) { File.readlines(spec_asset('dpkg-list-ubuntu-noble-vsphere-additions.txt')).map(&:chop) }
     let(:dpkg_list_azure_ubuntu) { File.readlines(spec_asset('dpkg-list-ubuntu-noble-azure-additions.txt')).map(&:chop) }
     let(:dpkg_list_cloudstack_ubuntu) { File.readlines(spec_asset('dpkg-list-ubuntu-noble-cloudstack-additions.txt')).map(&:chop) }
-    let(:dpkg_list_softlayer_ubuntu) { File.readlines(spec_asset('dpkg-list-ubuntu-noble-softlayer-additions.txt')).map(&:chop) }
 
     describe command(dpkg_list_packages), {
       exclude_on_fips: true,
@@ -469,7 +358,6 @@ HERE
       exclude_on_google: true,
       exclude_on_vsphere: true,
       exclude_on_azure: true,
-      exclude_on_softlayer: true,
     } do
       it 'contains only the base set of packages for alicloud, aws, openstack, warden' do
         expect(subject.stdout.split("\n")).to match_array(dpkg_list_ubuntu.concat(dpkg_list_kernel_ubuntu))
@@ -485,7 +373,6 @@ HERE
       exclude_on_warden: true,
       exclude_on_azure: true,
       exclude_on_openstack: true,
-      exclude_on_softlayer: true,
     } do
       it 'contains only the base set of packages plus google-specific packages' do
         expect(subject.stdout.split("\n")).to match_array(dpkg_list_ubuntu.concat(dpkg_list_kernel_ubuntu, dpkg_list_google_ubuntu))
@@ -501,7 +388,6 @@ HERE
       exclude_on_warden: true,
       exclude_on_azure: true,
       exclude_on_openstack: true,
-      exclude_on_softlayer: true,
     } do
       it 'contains only the base set of packages plus vsphere-specific packages' do
         expect(subject.stdout.split("\n")).to match_array(dpkg_list_ubuntu.concat(dpkg_list_kernel_ubuntu, dpkg_list_vsphere_ubuntu))
@@ -517,7 +403,6 @@ HERE
       exclude_on_google: true,
       exclude_on_warden: true,
       exclude_on_openstack: true,
-      exclude_on_softlayer: true,
     } do
       it 'contains only the base set of packages plus azure-specific packages' do
         expect(subject.stdout.split("\n")).to match_array(dpkg_list_ubuntu.concat(dpkg_list_kernel_ubuntu, dpkg_list_azure_ubuntu))
@@ -539,21 +424,6 @@ HERE
       end
     end
 
-    describe command(dpkg_list_packages), {
-      exclude_on_fips: true,
-      exclude_on_alicloud: true,
-      exclude_on_aws: true,
-      exclude_on_cloudstack: true,
-      exclude_on_vsphere: true,
-      exclude_on_google: true,
-      exclude_on_warden: true,
-      exclude_on_azure: true,
-      exclude_on_openstack: true,
-    } do
-      it 'contains only the base set of packages plus softlayer-specific packages' do
-        expect(subject.stdout.split("\n")).to match_array(dpkg_list_ubuntu.concat(dpkg_list_kernel_ubuntu, dpkg_list_softlayer_ubuntu))
-      end
-    end
   end
 end
 

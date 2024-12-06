@@ -16,8 +16,6 @@ module Bosh::Stemcell
           Warden.new
         when 'azure'
           Azure.new
-        when 'softlayer'
-          Softlayer.new
         when 'cloudstack'
           CloudStack.new
         when 'null'
@@ -194,20 +192,5 @@ module Bosh::Stemcell
       end
     end
 
-    class Softlayer < Base
-      def initialize
-        super(
-          name: 'softlayer',
-          hypervisor: 'esxi',
-          default_disk_size: 25600,
-          disk_formats: ['ovf'],
-          stemcell_formats: ['softlayer-ovf']
-        )
-      end
-
-      def additional_cloud_properties
-        {'root_device_name' => '/dev/sda1'}
-      end
-    end
   end
 end
