@@ -142,13 +142,6 @@ describe 'Stig test case verification', stemcell_image: true, security_spec: tru
       ]
     end
 
-    case ENV['IAAS']
-    when 'softlayer'
-      expected_stig_test_cases = expected_stig_test_cases - [
-        'V-38613'
-      ]
-    end
-
     expect($stig_test_cases.to_a).to match_array expected_stig_test_cases
   end
 end

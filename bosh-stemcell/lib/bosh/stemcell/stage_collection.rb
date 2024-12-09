@@ -63,8 +63,6 @@ module Bosh::Stemcell
                  warden_stages
                when Infrastructure::Azure then
                  azure_stages
-               when Infrastructure::Softlayer then
-                 softlayer_stages
                end
 
       stages.concat(finish_stemcell_stages)
@@ -233,26 +231,6 @@ module Bosh::Stemcell
         :image_create_efi,
         :image_install_grub,
         :sbom_create,
-      ]
-    end
-
-    def softlayer_stages
-      [
-        :system_network,
-        :system_softlayer_open_iscsi,
-        :system_softlayer_multipath_tools,
-        :system_softlayer_netplan,
-        :system_parameters,
-        :bosh_clean,
-        :bosh_harden,
-        :bosh_softlayer_agent_settings,
-        :bosh_config_root_ssh_login,
-        :bosh_clean_ssh,
-        # when adding a stage that changes files in the image, do so before
-        # this line.  Image create will make the image so any changes to the
-        # filesystem after it won't apply.
-        :image_create_softlayer_two_partitions,
-        :image_install_grub_softlayer_two_partitions,
       ]
     end
 
