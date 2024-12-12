@@ -9,6 +9,7 @@ show_help() {
     echo "  --help, -h                Show this help message and exit"
     echo "  --debug                   Enable debug mode"
     echo "  --debug_pub_key FILE      Set a multiline public key file"
+    echo "  --bump-version            Bump the version in the stemcell with 0.0.<timestamp>"
     echo
     echo "Environment Variables:"
     echo "  stemcell_tgz              Path to the stemcell tarball *REQUIRED*"
@@ -33,6 +34,7 @@ convert_multiline_to_single() {
 
 # Check for help, debug, or debug_pub_key argument
 convert_cert_file=""
+bump_version=false
 for arg in "$@"; do
     case $arg in
         --help|-h)
@@ -45,6 +47,10 @@ for arg in "$@"; do
         --debug_pub_key)
             convert_cert_file="$2"
             shift 2
+            ;;
+        --bump-version)
+            bump_version=true
+            shift
             ;;
         *)
             shift
@@ -82,7 +88,9 @@ trap 'rm -rf "${mnt_dir}"' EXIT
 device=$(sudo kpartx -sav disk.raw | grep '^add' | tail -n1 | cut -d' ' -f3)
 sudo mount -o loop,rw /dev/mapper/$device $mnt_dir
 
-# echo -n "0.0.${new_ver}" | sudo tee $mnt_dir/var/vcap/bosh/etc/stemcell_version
+if [ "$bump_version" = true ]; then
+    echo -n "0.0.${new_ver}" | sudo tee "$mnt_dir/var/vcap/bosh/etc/stemcell_version"
+fi
 
 if [ -n "$AGENT_BINARY" ]; then
     sudo cp $AGENT_BINARY $mnt_dir/var/vcap/bosh/bin/bosh-agent
@@ -109,7 +117,9 @@ sudo kpartx -dv disk.raw
 tar czvf $stemcell_dir/image *
 
 cd $stemcell_dir
-# sed -i.bak "s/version: .*/version: 0.0.${new_ver}/" stemcell.MF
+if [ "$bump_version" = true ]; then
+    sed -i.bak "s/version: .*/version: 0.0.${new_ver}/" stemcell.MF
+fi
 tar czvf $stemcell_tgz *
 
 echo "ALL DONE!!!"
