@@ -3,30 +3,4 @@
 base_dir=$(readlink -nf $(dirname $0)/../..)
 source $base_dir/lib/prelude_apply.bash
 
-cat > $chroot/var/vcap/bosh/agent.json <<JSON
-{
-  "Platform": {
-    "Linux": {
-      "PartitionerType": "parted",
-      "DevicePathResolutionType": "virtio",
-      "CreatePartitionIfNoEphemeralDisk": true,
-      "ServiceManager": "systemd"
-    }
-  },
-  "Infrastructure": {
-    "Settings": {
-      "Sources": [
-        {
-          "Type": "HTTP",
-          "URI": "http://169.254.169.254",
-          "UserDataPath": "/latest/user-data",
-          "InstanceIDPath": "/latest/meta-data/instance-id",
-          "SSHKeysPath": "/latest/meta-data/public-keys/0/openssh-key",
-          "TokenPath": "/latest/api/token"
-        }
-      ],
-      "UseRegistry": true
-    }
-  }
-}
-JSON
+cp $assets_dir/agent.json $chroot/var/vcap/bosh/agent.json

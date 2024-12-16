@@ -1,0 +1,19 @@
+{
+  "Platform": {
+    "Linux": {
+      "PartitionerType": "parted",
+      "DevicePathResolutionType": "scsi",
+      "ServiceManager": "systemd"
+    }
+  },
+  "Infrastructure": {
+    "Settings": {
+      "Sources": [
+        {
+          "Type": "CDROM",
+          "FileName": "env"
+        }
+      ]
+    }
+  }
+}
