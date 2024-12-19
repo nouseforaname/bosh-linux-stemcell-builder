@@ -1,22 +1,22 @@
 <metalink xmlns="urn:ietf:params:xml:ns:metalink">
   <file name="ubuntu-noble.tgz">
-    <hash type="sha-512">36528542b036a49a074282a6aada9028cf7a53267e1f1f975b0c6c60aff61890d9ab331669c72e8ea1f0c35b692c9de8fe6f6d800562f6920551a6d58857001d</hash>
-    <hash type="sha-256">a5ba29abaeb383ed9e19782ff72e2f14aedbb315158c77bb112634a2aa79fc71</hash>
-    <hash type="sha-1">604a2346f1472984ec540a53df416b89089f6f43</hash>
-    <hash type="md5">68fcba20fd70f71fd85d9b824774b6c8</hash>
-    <size>445643252</size>
+    <hash type="sha-512">a55ae93d66c46761e380cb7ebcfaaaaf99766d838116d7a399cf6c6e5f031e12aaf96b7c9b5cf046e22194a04bb7fb8ece480ab660b4dd39c2936bfe03e80bff</hash>
+    <hash type="sha-256">36335079ddae7e225b8058665f112b9b93149f3e0d67dfb4bc6bff4c33e5306d</hash>
+    <hash type="sha-1">bee855b3eaac0ca6e78cb0211e5cd0a51cdb1332</hash>
+    <hash type="md5">c2c13800f6d33747fae3a8154e99ec63</hash>
+    <size>445715459</size>
     <url>https://storage.googleapis.com/bosh-os-images/ubuntu-noble/ubuntu-noble.tgz</url>
-    <version>53.0.0</version>
+    <version>54.0.0</version>
   </file>
   <file name="usn-log.json">
-    <hash type="sha-512">17e69d040c6f9dc5d3e686e4297c4227bdba5f6c641b65031220b758840705ba5ba3813d68c987d98811f47ae6e895fec0a93b4fe45cdc6dec7b96599b3632ce</hash>
-    <hash type="sha-256">f2adb422f74e44e0c20907b52fad249fd305ecb9edc48f27184946ec024fb8c5</hash>
-    <hash type="sha-1">437dafddb0b3eb6a6194b3bcdf5456c981a3faa5</hash>
-    <hash type="md5">8e91282a33af644115f859b71f128e66</hash>
-    <size>40186</size>
+    <hash type="sha-512">15a04ec41073dcf29b0a649356ab52a49f336eece98558341850223565e5f37a13254a724d759f5ecf35a54499948bda44086dcf185ba3b59ad9bff2abdbd461</hash>
+    <hash type="sha-256">0d1f92f3d0cc8b3725014ffab9a7430613d03c096bc9bb15a4dca8774859fc4c</hash>
+    <hash type="sha-1">9537509ee95d5453df17362d4d33189e309a552d</hash>
+    <hash type="md5">a4d06484d373ab3ece28e6e41d3f3bc5</hash>
+    <size>41063</size>
     <url>https://storage.googleapis.com/bosh-os-images/ubuntu-noble/usn-log.json</url>
-    <version>53.0.0</version>
+    <version>54.0.0</version>
   </file>
   <generator>metalink-repository-resource/0.0.0</generator>
-  <published>2024-12-18T00:05:03.080424689Z</published>
+  <published>2024-12-19T16:01:03.194875885Z</published>
 </metalink>
