@@ -10,3 +10,5 @@ group :development, :test do
   gem 'rspec-its'
   gem 'timecop'
 end
+
+gem "pry", "~> 0.15.2"

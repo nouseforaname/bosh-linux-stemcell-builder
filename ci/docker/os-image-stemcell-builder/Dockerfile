@@ -7,11 +7,9 @@ LABEL maintainer="cf-bosh@lists.cloudfoundry.org"
 ARG USER_ID=1000
 ARG GROUP_ID=1000
 ARG DEBIAN_FRONTEND=noninteractive # prevents s3cmd dpkg install asking TZ info
-
-RUN \
-  apt-get update \
-  && apt-get -y upgrade \
-  && apt-get install -y \
+RUN apt-get update 
+RUN apt-get -y upgrade
+RUN apt-get install -y \
     apt-utils \
     bison \
     build-essential \
@@ -99,16 +97,16 @@ RUN \
   && chown -R ubuntu:ubuntu /mnt/stemcells
 
 # VMware's ovftool is used to create vSphere stemcells
-ENV OVF_TOOL_INSTALLER VMware-ovftool-4.4.3-18663434-lin.x86_64.bundle
-ENV OVF_TOOL_INSTALLER_SHA1 6c24e473be49c961cfc3bb16774b52b48e822991
-ADD ${OVF_TOOL_INSTALLER} /tmp/ovftool_installer.bundle
-RUN \
-  cd /tmp \
-  && echo "${OVF_TOOL_INSTALLER_SHA1} /tmp/ovftool_installer.bundle" | sha1sum -c - \
-  && chmod a+x ./ovftool_installer.bundle \
-  && ln -s /bin/cat /usr/local/bin/more \
-  && bash  ./ovftool_installer.bundle --eulas-agreed \
-  && rm -rf ./ovftool_installer.bundle /tmp/vmware-root/ /usr/local/bin/more
+# ENV OVF_TOOL_INSTALLER VMware-ovftool-4.4.3-18663434-lin.x86_64.bundle
+# ENV OVF_TOOL_INSTALLER_SHA1 6c24e473be49c961cfc3bb16774b52b48e822991
+# ADD ${OVF_TOOL_INSTALLER} /tmp/ovftool_installer.bundle
+# RUN \
+#   cd /tmp \
+#   && echo "${OVF_TOOL_INSTALLER_SHA1} /tmp/ovftool_installer.bundle" | sha1sum -c - \
+#   && chmod a+x ./ovftool_installer.bundle \
+#   && ln -s /bin/cat /usr/local/bin/more \
+#   && bash  ./ovftool_installer.bundle --eulas-agreed \
+#   && rm -rf ./ovftool_installer.bundle /tmp/vmware-root/ /usr/local/bin/more
 
 RUN \
   wget -O /usr/bin/meta4 https://github.com/dpb587/metalink/releases/download/v0.2.0/meta4-0.2.0-linux-amd64 \

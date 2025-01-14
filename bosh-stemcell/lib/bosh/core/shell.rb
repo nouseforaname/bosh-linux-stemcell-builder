@@ -52,7 +52,8 @@ module Bosh::Core
       if options[:redact]
         redacted_cmd = redacted_cmd.gsub(/#{options[:redact].join('|')}/, "[REDACTED]")
       end
-
+      require 'pry'
+      binding.pry
       err_msg = "Failed: '#{redacted_cmd}' from #{pwd}, with exit status #{$?.to_i}\n\n #{command_output}"
       options[:ignore_failures] ? stdout.puts("#{err_msg}, continuing anyway") : raise(err_msg)
     end

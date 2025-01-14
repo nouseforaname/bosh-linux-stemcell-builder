@@ -1,0 +1,6 @@
+this whole thing wants sudo. nothing that needs to run in chroot is super crazy, it should be doable with the below to get rid of all the nested sudo'ing
+
+
+https://proot-me.github.io/#description
+
+
